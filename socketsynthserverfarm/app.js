@@ -4,18 +4,46 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
+// var port = process.env.PORT || 8081;
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// sockets
+
+io.on('connect', function(socket){
+  console.log('A user has connected');
+  socket.on('disconnect', function(){
+    console.log('A user has disconnected');
+  });
+
+  var i = 0;
+  setInterval(function(){
+  	socket.emit('message', {
+  		message: i
+  	});
+  	i++;
+  }, 1000);
+});
+
+// server.listen(port, function(){
+//   console.log('listening on :' + port);
+//   console.log(process.env.PORT);
+//   console.log(process.env.CLIENT_URL);
+// });
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,4 +85,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports = {
+app,
+server
+};
