@@ -27,7 +27,7 @@ io.on('connect', function(socket){
     console.log('A user has disconnected');
   });
 
-  var i = 'z x c';
+  var i = 'x';
   setInterval(function(){
   	socket.emit('message', {
   		message: i
