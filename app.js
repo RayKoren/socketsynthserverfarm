@@ -27,12 +27,12 @@ io.on('connect', function(socket){
     console.log('A user has disconnected');
   });
 
-  var i = 0;
+  var i = 'z';
   setInterval(function(){
   	socket.emit('message', {
   		message: i
   	});
-  	i++;
+  	// i++;
   }, 1000);
 });
 
