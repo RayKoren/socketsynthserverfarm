@@ -27,7 +27,7 @@ io.on('connect', function(socket){
     console.log('A user has disconnected');
   });
 
-  var i = 'z';
+  var i = 'z x c';
   setInterval(function(){
   	socket.emit('message', {
   		message: i
@@ -36,11 +36,10 @@ io.on('connect', function(socket){
   }, 1000);
 });
 
-// server.listen(port, function(){
-//   console.log('listening on :' + port);
-//   console.log(process.env.PORT);
-//   console.log(process.env.CLIENT_URL);
-// });
+io.on('keyboard', function (evnt) {
+        sendKey(evnt.keyCode, evnt.isDown);
+        console.log(evnt.keyCode);
+      });
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(cors());
