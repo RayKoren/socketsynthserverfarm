@@ -34,15 +34,15 @@ io.on('connect', function(socket){
   // 	});
   // 	// i++;
   // }, 1000);
-});
-io.on('send:message', function (data) {
+
+socket.on('send:message', function (data) {
     socket.broadcast.emit('message', {
       message: data.message
     });
     console.log('sent');
 
   });
-
+});
 
 
 // uncomment after placing your favicon in /public
