@@ -36,7 +36,7 @@ io.on('connect', function(socket){
   // }, 1000);
 });
 io.on('send:message', function (data) {
-    socket.broadcast.emit('message', {
+    socket.emit('message', {
       message: data.message
     });
     console.log('sent');
