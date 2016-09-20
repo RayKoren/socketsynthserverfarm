@@ -26,20 +26,25 @@ io.on('connect', function(socket){
   socket.on('disconnect', function(){
     console.log('A user has disconnected');
   });
-
-  var i = 'x';
-  setInterval(function(){
-  	socket.emit('message', {
-  		message: i
-  	});
-  	// i++;
-  }, 1000);
+  // test
+  // var i = 'x';
+  // setInterval(function(){
+  // 	socket.emit('message', {
+  // 		message: i
+  // 	});
+  // 	// i++;
+  // }, 1000);
 });
+io.on('send:message', function (data) {
+    socket.broadcast.emit('send:message', {
+      text: data.message
+    });
+    console.log('sent');
 
-io.on('keyboard', function (evnt) {
-        sendKey(evnt.keyCode, evnt.isDown);
-        console.log(evnt.keyCode);
-      });
+  });
+
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(cors());
