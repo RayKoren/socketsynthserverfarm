@@ -42,6 +42,10 @@ socket.on('send:message', function (data) {
     console.log('sent');
 
   });
+   socket.on('noteOff', function(){
+     socket.broadcast.emit('noteOff');
+   });
+
 });
 
 
